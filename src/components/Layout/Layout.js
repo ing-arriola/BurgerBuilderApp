@@ -1,10 +1,11 @@
 import React from "react";
-import Aux from "../hoc/Aux";
+import Aux from "../../hoc/Aux";
+import classes from "./Layout.css";
 const Layout = ({ children }) => {
   return (
     <Aux>
       <div>Toolbar,SideDrawer,Backdrop</div>
-      <main>{children}</main>
+      <main className={classes.Content}>{children}</main>
     </Aux>
   );
 };
