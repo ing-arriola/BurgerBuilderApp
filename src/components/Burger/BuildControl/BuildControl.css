@@ -1,11 +1,11 @@
-.BuilControl {
+.BuildControl {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 5px 0;
 }
 
-.BuilControl button {
+.BuildControl button {
   display: block;
   font: inherit;
   padding: 5px;
