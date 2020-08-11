@@ -18,6 +18,7 @@ const BuilControls = (props) => {
           removed={() => props.ingredientsRemoved(control.type)}
           key={control.label}
           label={control.label}
+          disabled={props.disabled[control.type]}
         />
       ))}
     </div>
