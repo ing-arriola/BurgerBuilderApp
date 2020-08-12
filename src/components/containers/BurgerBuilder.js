@@ -19,6 +19,23 @@ class BurgerBuilder extends Component {
       meat: 0,
     },
     totalPrice: 2,
+    purchasable: false,
+  };
+
+  updatePurchaseState = (ingredients) => {
+    //Here first of all I access the copy of the ingredents and I turned this object into an array
+    //with Object.keys but that return the name of the ingredients but actually I need the number of each ingredient
+    //So I map every element in the first array (names) into the ingredients object to get the number of each ingredients
+    //finally I add all the ingredients with reduce to know if the customer has been purchased some ingredients wich will turn
+    //the burger into a purchasable element :)
+    const sum = Object.keys(ingredients)
+      .map((key) => {
+        return ingredients[key];
+      })
+      .reduce((total, el) => {
+        return total + el;
+      });
+    this.setState({ purchasable: sum > 0 });
   };
 
   addIngredientHandler = (type) => {
@@ -32,6 +49,7 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice + priceAddition;
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
+    this.updatePurchaseState(updatedIngredients);
   };
   removeIngredientHandler = (type) => {
     const oldCount = this.state.ingredients[type];
@@ -47,6 +65,7 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice - priceAddition;
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
+    this.updatePurchaseState(updatedIngredients);
   };
 
   render() {
@@ -66,6 +85,7 @@ class BurgerBuilder extends Component {
             ingredientsAdded={this.addIngredientHandler}
             ingredientsRemoved={this.removeIngredientHandler}
             disabled={disabledInfo}
+            purchasable={this.state.purchasable}
             price={this.state.totalPrice}
           />
         </Aux>
