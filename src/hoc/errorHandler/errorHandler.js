@@ -9,15 +9,29 @@ const errorHandler = (WrappedComponent, axios) => {
     };
 
     componentDidMount() {
-      axios.interceptors.response.use(null, (err) => {
-        this.setState({ error: err });
+      axios.interceptors.request.use((req) => {
+        this.setState({ error: null });
+        return req;
       });
+
+      axios.interceptors.response.use(
+        (res) => res,
+        (err) => {
+          this.setState({ error: err });
+        }
+      );
     }
+
+    errorDelete = () => {
+      this.setState({ error: null });
+    };
 
     render() {
       return (
         <Aux>
-          <Modal>Whoooops!!! Something went wrong :(</Modal>
+          <Modal closed={this.errorDelete} show={this.state.error}>
+            {this.state.error ? this.state.error.message : null}
+          </Modal>
           <WrappedComponent {...this.props} />
         </Aux>
       );

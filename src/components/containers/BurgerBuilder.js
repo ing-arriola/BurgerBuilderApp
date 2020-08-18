@@ -147,4 +147,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default errorHandler(BurgerBuilder);
+export default errorHandler(BurgerBuilder, axios);
