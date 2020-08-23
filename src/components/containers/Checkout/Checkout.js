@@ -9,10 +9,24 @@ export class Checkout extends Component {
       bacon: 2,
     },
   };
+
+  checkoutCancelledHandler = () => {
+    console.log(this.props);
+    this.props.history.goBack();
+  };
+
+  checkoutContinueHandler = () => {
+    this.props.history.replace("/checkout/contact-data");
+  };
+
   render() {
     return (
       <div>
-        <CheckoutSummary ingredients={this.state.ingredients} />
+        <CheckoutSummary
+          checkoutCancelled={this.checkoutCancelledHandler}
+          checkoutContinue={this.checkoutContinueHandler}
+          ingredients={this.state.ingredients}
+        />
       </div>
     );
   }
