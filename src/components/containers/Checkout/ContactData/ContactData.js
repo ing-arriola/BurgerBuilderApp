@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "../../../UI/Button/Button";
+import classes from "./ContactData.css";
 
 export class ContactData extends Component {
   state = {
@@ -12,7 +13,7 @@ export class ContactData extends Component {
   };
   render() {
     return (
-      <div>
+      <div className={classes.ContactData}>
         <h4>Enter your Contact Data</h4>
         <form>
           <label>Your name:</label>
