@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 class BurgerIngredients extends Component {
   render() {
     let ingredient = null;
-    console.log("hola");
     switch (this.props.type) {
       case "bread-bottom":
         ingredient = <div className={classes.BreadBottom}></div>;
