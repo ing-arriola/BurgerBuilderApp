@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "../../../UI/Button/Button";
+import axios from "../../../../orders";
 import classes from "./ContactData.css";
 
 export class ContactData extends Component {
@@ -10,7 +11,33 @@ export class ContactData extends Component {
       street: "",
       postalCode: "",
     },
+    loading: false,
+    purchasing: true,
   };
+
+  orderHandler = (e) => {
+    e.preventDefault();
+    console.log(this.props.ingredients);
+    this.setState({ loading: true });
+    const order = {
+      ingredient: this.props.ingredients,
+      price: this.props.price,
+      customer: {
+        name: "Jaime Arriola",
+      },
+    };
+
+    axios
+      .post("/orders.json", order)
+      .then((res) => {
+        this.setState({ loading: false, purchasing: false });
+      })
+      .catch((err) => {
+        this.setState({ loading: false, purchasing: false });
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div className={classes.ContactData}>
@@ -24,7 +51,9 @@ export class ContactData extends Component {
           <input type="text" name="street" />
           <label>Postal Code:</label>
           <input type="text" name="pcode" />
-          <Button Btntype="Success">ORDER</Button>
+          <Button Btntype="Success" clicked={this.orderHandler}>
+            ORDER
+          </Button>
         </form>
       </div>
     );
