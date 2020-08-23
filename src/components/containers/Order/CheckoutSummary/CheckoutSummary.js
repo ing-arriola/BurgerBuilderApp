@@ -1,16 +1,23 @@
 import React from "react";
 import Burger from "../../../Burger/Burger";
 import Button from "../../../UI/Button/Button";
+import classes from "./CheckoutSummary.css";
 
 const CheckoutSummary = (props) => {
   return (
-    <div>
+    <div className={classes.CheckoutSummary}>
       <h1>soem text</h1>
-      <div style={{ width: "300px", height: "300px", margin: "auto" }}>
+      <div
+        style={{
+          width: "100%",
+          margin: "auto",
+          marginBottom: "20px",
+        }}
+      >
         <Burger ingredients={props.ingredients} />
       </div>
-      <Button btnType="Danger">CANCEL</Button>
-      <Button btnType="Success">CONTINUE</Button>
+      <Button Btntype="Danger">CANCEL</Button>
+      <Button Btntype="Success">CONTINUE</Button>
     </div>
   );
 };
