@@ -4,16 +4,11 @@ import CheckoutSummary from "../Order/CheckoutSummary/CheckoutSummary";
 import ContactData from "./ContactData/ContactData";
 export class Checkout extends Component {
   state = {
-    ingredients: {
-      salad: 1,
-      meat: 2,
-      cheese: 1,
-      bacon: 2,
-    },
+    ingredients: null,
     totalPrice: 0,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const data = new URLSearchParams(this.props.location.search);
     console.log(data.entries());
     const ingredientsTobeAdded = {};
@@ -48,10 +43,11 @@ export class Checkout extends Component {
         />
         <Route
           path={this.props.match.path + "/contact-data"}
-          render={() => (
+          render={(props) => (
             <ContactData
               ingredients={this.state.ingredients}
               price={this.state.totalPrice}
+              {...props}
             />
           )}
         />

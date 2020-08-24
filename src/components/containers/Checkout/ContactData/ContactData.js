@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "../../../UI/Button/Button";
 import axios from "../../../../orders";
+import Spinner from "../../../../components/UI/Spinner/Spinner";
 import classes from "./ContactData.css";
 
 export class ContactData extends Component {
@@ -12,7 +13,6 @@ export class ContactData extends Component {
       postalCode: "",
     },
     loading: false,
-    purchasing: true,
   };
 
   orderHandler = (e) => {
@@ -30,31 +30,38 @@ export class ContactData extends Component {
     axios
       .post("/orders.json", order)
       .then((res) => {
-        this.setState({ loading: false, purchasing: false });
+        this.setState({ loading: false });
+        this.props.history.push("/");
       })
       .catch((err) => {
-        this.setState({ loading: false, purchasing: false });
+        this.setState({ loading: false });
         console.log(err);
       });
   };
 
   render() {
+    let form = (
+      <form>
+        <label>Your name:</label>
+        <input type="text" name="name" />
+        <label>Your email:</label>
+        <input type="email" name="email" />
+        <label>Stret:</label>
+        <input type="text" name="street" />
+        <label>Postal Code:</label>
+        <input type="text" name="pcode" />
+        <Button Btntype="Success" clicked={this.orderHandler}>
+          ORDER
+        </Button>
+      </form>
+    );
+    if (this.state.loading) {
+      form = <Spinner />;
+    }
     return (
       <div className={classes.ContactData}>
         <h4>Enter your Contact Data</h4>
-        <form>
-          <label>Your name:</label>
-          <input type="text" name="name" />
-          <label>Your email:</label>
-          <input type="email" name="email" />
-          <label>Stret:</label>
-          <input type="text" name="street" />
-          <label>Postal Code:</label>
-          <input type="text" name="pcode" />
-          <Button Btntype="Success" clicked={this.orderHandler}>
-            ORDER
-          </Button>
-        </form>
+        {form}
       </div>
     );
   }
