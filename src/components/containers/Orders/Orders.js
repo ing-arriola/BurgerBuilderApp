@@ -28,12 +28,16 @@ export class Orders extends Component {
       });
   }
   render() {
-    return (
-      <div>
-        <Order />
-        <Order />
-      </div>
-    );
+    const data = this.state.orders;
+    const listItems = data.map((ord) => (
+      <Order
+        key={ord.id}
+        price={ord.price}
+        ingredients={ord.ingredient}
+        id={ord.id}
+      />
+    ));
+    return <div>{listItems}</div>;
   }
 }
 
