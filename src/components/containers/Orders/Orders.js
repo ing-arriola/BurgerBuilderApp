@@ -30,12 +30,7 @@ export class Orders extends Component {
   render() {
     const data = this.state.orders;
     const listItems = data.map((ord) => (
-      <Order
-        key={ord.id}
-        price={ord.price}
-        ingredients={ord.ingredient}
-        id={ord.id}
-      />
+      <Order key={ord.id} price={ord.price} ingredients={ord.ingredient} />
     ));
     return <div>{listItems}</div>;
   }
