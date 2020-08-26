@@ -7,10 +7,10 @@
 .Label {
   font-weight: bold;
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
-.inputElement {
+.InputElement {
   outline: none;
   border: 1px solid #ccc;
   background-color: #fff;
@@ -18,9 +18,10 @@
   padding: 6px 10px;
   display: block;
   width: 100%;
+  box-sizing: border-box;
 }
 
-.inputElement:focus {
-  border: 1px solid rgb(31, 33, 175);
-  background: #ccc;
+.InputElement:focus {
+  border: 1px solid rgb(2, 107, 168);
+  background: rgb(235, 232, 232);
 }
