@@ -7,11 +7,45 @@ import classes from "./ContactData.css";
 
 export class ContactData extends Component {
   state = {
-    name: "",
-    email: "",
-    address: {
-      street: "",
-      postalCode: "",
+    orderForm: {
+      name: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+        },
+        value: "",
+      },
+      email: {
+        elementType: "input",
+        elementConfig: {
+          type: "email",
+        },
+        value: "",
+      },
+      street: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+        },
+        value: "",
+      },
+      postal: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+        },
+        value: "",
+      },
+      deliverMethod: {
+        elementType: "select",
+        elementConfig: {
+          options: [
+            { value: "Fast", displayValue: "Fast" },
+            { value: "Cheap", displayValue: "Cheap" },
+          ],
+        },
+        value: "",
+      },
     },
     loading: false,
   };
@@ -23,9 +57,6 @@ export class ContactData extends Component {
     const order = {
       ingredient: this.props.ingredients,
       price: this.props.price,
-      customer: {
-        name: "Jaime Arriola",
-      },
     };
 
     axios
