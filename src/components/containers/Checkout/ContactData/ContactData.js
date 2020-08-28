@@ -12,6 +12,7 @@ export class ContactData extends Component {
         elementType: "input",
         elementConfig: {
           type: "text",
+          placeholder: "name",
         },
         value: "",
       },
@@ -19,6 +20,7 @@ export class ContactData extends Component {
         elementType: "input",
         elementConfig: {
           type: "email",
+          placeholder: "email",
         },
         value: "",
       },
@@ -26,6 +28,7 @@ export class ContactData extends Component {
         elementType: "input",
         elementConfig: {
           type: "text",
+          placeholder: "street",
         },
         value: "",
       },
@@ -33,6 +36,7 @@ export class ContactData extends Component {
         elementType: "input",
         elementConfig: {
           type: "text",
+          placeholder: "zip code",
         },
         value: "",
       },
@@ -72,16 +76,25 @@ export class ContactData extends Component {
   };
 
   render() {
+    const elementsForms = [];
+    for (let element in this.state.orderForm) {
+      elementsForms.push({
+        id: element,
+        setup: this.state.orderForm[element],
+      });
+    }
+    console.log(elementsForms[0].setup.elementType);
     let form = (
       <form>
         <label>Your name:</label>
-        <Input type="text" name="name" />
-        <label>Your email:</label>
-        <Input type="email" name="email" />
-        <label>Stret:</label>
-        <Input type="text" name="street" />
-        <label>Postal Code:</label>
-        <Input type="text" name="pcode" />
+        {elementsForms.map((field) => (
+          <Input
+            key={field.id}
+            elementType={field.setup.elementType}
+            elementConfig={field.setup.elementConfig}
+            value={field.setup.value}
+          />
+        ))}
         <Button Btntype="Success" clicked={this.orderHandler}>
           ORDER
         </Button>
