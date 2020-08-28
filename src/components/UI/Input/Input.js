@@ -10,6 +10,7 @@ const Input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.change}
         />
       );
       break;
@@ -19,12 +20,17 @@ const Input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.change}
         />
       );
       break;
     case "select":
       inputElement = (
-        <select className={classes.InputElement} value={props.value}>
+        <select
+          className={classes.InputElement}
+          value={props.value}
+          onChange={props.change}
+        >
           {props.elementConfig.options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {" "}

@@ -75,6 +75,18 @@ export class ContactData extends Component {
       });
   };
 
+  inputChangeHandler = (e, inputId) => {
+    const stateCopy = {
+      ...this.state.orderForm,
+    };
+    const stateElementCopy = {
+      ...stateCopy[inputId],
+    };
+    stateElementCopy.value = e.target.value;
+    stateCopy[inputId] = stateElementCopy;
+    this.setState({ orderForm: stateCopy });
+  };
+
   render() {
     const elementsForms = [];
     for (let element in this.state.orderForm) {
@@ -93,6 +105,7 @@ export class ContactData extends Component {
             elementType={field.setup.elementType}
             elementConfig={field.setup.elementConfig}
             value={field.setup.value}
+            change={(e) => this.inputChangeHandler(e, field.id)}
           />
         ))}
         <Button Btntype="Success" clicked={this.orderHandler}>
