@@ -7,6 +7,7 @@ const Input = (props) => {
     case "input":
       inputElement = (
         <input
+          required
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}

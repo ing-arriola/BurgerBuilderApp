@@ -15,6 +15,8 @@ export class ContactData extends Component {
           placeholder: "name",
         },
         value: "",
+        validation: { required: "true" },
+        valid: false,
       },
       email: {
         elementType: "input",
@@ -23,6 +25,8 @@ export class ContactData extends Component {
           placeholder: "email",
         },
         value: "",
+        validation: { required: "true" },
+        valid: false,
       },
       street: {
         elementType: "input",
@@ -31,6 +35,8 @@ export class ContactData extends Component {
           placeholder: "street",
         },
         value: "",
+        validation: { required: "true" },
+        valid: false,
       },
       postal: {
         elementType: "input",
@@ -39,6 +45,8 @@ export class ContactData extends Component {
           placeholder: "zip code",
         },
         value: "",
+        validation: { required: "true" },
+        valid: false,
       },
       deliverMethod: {
         elementType: "select",
@@ -48,7 +56,7 @@ export class ContactData extends Component {
             { value: "Cheap", displayValue: "Cheap" },
           ],
         },
-        value: "",
+        value: "Fast ",
       },
     },
     loading: false,
@@ -79,6 +87,14 @@ export class ContactData extends Component {
       });
   };
 
+  checkFormField(fieldValue, rules) {
+    let valid = false;
+    if (rules.required) {
+      valid = fieldValue.trim() !== "";
+    }
+    return valid;
+  }
+
   inputChangeHandler = (e, inputId) => {
     const stateCopy = {
       ...this.state.orderForm,
@@ -87,7 +103,12 @@ export class ContactData extends Component {
       ...stateCopy[inputId],
     };
     stateElementCopy.value = e.target.value;
+    stateElementCopy.valid = this.checkFormField(
+      stateElementCopy.value,
+      stateElementCopy.validation
+    );
     stateCopy[inputId] = stateElementCopy;
+    console.log(stateElementCopy);
     this.setState({ orderForm: stateCopy });
   };
 
