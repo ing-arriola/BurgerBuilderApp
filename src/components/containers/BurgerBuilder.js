@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Aux from "../../hoc/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../Burger/BuildConrols/BuilControls";
@@ -7,6 +8,7 @@ import OrderSummary from "../Burger/OrderSummary/OrderSummary";
 import axios from "../../orders";
 import Spinner from "../UI/Spinner/Spinner";
 import errorHandler from "../../hoc/errorHandler/errorHandler";
+import * as actionTypes from "../../store/actions";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -26,14 +28,14 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    axios
+    /*axios
       .get("https://burgerbuilder-96fd2.firebaseio.com/ingredients.json")
       .then((res) => {
         this.setState({ ingredients: res.data });
       })
       .catch((err) => {
         this.setState({ error: true });
-      });
+      });*/
   }
 
   updatePurchaseState = (ingredients) => {
@@ -169,4 +171,17 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default errorHandler(BurgerBuilder, axios);
+const mapStatetoProps = (state) => {
+  return {
+    localIngredients: state.ingredients,
+  };
+};
+
+const mapDispathtoProps = (dispatch) => {
+  return {
+    onIngredientAdded: (name) =>
+      dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName: name }),
+  };
+};
+
+export default connect(mapStatetoProps)(errorHandler(BurgerBuilder, axios));
