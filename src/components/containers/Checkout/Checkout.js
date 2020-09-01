@@ -33,7 +33,6 @@ export class Checkout extends Component {
 const mapStatetoProps = (state) => {
   return {
     localIngredients: state.ingredients,
-    totalPrice: state.totalPrice,
   };
 };
 
