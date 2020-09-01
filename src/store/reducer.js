@@ -1,6 +1,6 @@
 import * as actionTypes from "./actions";
 
-initialState = {
+const initialState = {
   ingredients: {
     salad: 0,
     cheese: 0,
@@ -33,3 +33,5 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default reducer;
