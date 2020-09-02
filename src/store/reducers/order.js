@@ -15,7 +15,6 @@ const reducer = (state = initialState, action) => {
       };
 
     case actionTypes.PURCHASE_START:
-      console.log("QUE PEDO EN PURCHASE START");
       return {
         ...state,
         loading: true,
