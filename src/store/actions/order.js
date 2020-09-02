@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../orders";
-
+import * as actions from "../../store/actions/index";
 //Synchronous actions
 export const purchaseSuccess = (id, orderDataReceived) => {
   return {
@@ -30,12 +30,19 @@ export const purchase = (orderData) => {
     axios
       .post("/orders.json", orderData)
       .then((res) => {
-        dispatchEvent(purchaseSuccess(res.data.name, orderData));
+        console.log(res.data);
+        dispatch(purchaseSuccess(res.data.name, orderData));
         //this.props.history.push("/");
       })
       .catch((err) => {
         dispatch(purchaseFail(err));
         console.log(err);
       });
+  };
+};
+
+export const purchaseInit = () => {
+  return {
+    type: actionTypes.PURCHASE_INIT,
   };
 };

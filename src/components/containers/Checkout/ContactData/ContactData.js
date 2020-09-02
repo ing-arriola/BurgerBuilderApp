@@ -60,6 +60,8 @@ export class ContactData extends Component {
           ],
         },
         value: "Fast ",
+        valid: true,
+        validation: {},
       },
     },
   };
