@@ -62,7 +62,6 @@ export class ContactData extends Component {
         value: "Fast ",
       },
     },
-    loading: false,
   };
 
   orderHandler = (e) => {
@@ -130,7 +129,7 @@ export class ContactData extends Component {
         <Button Btntype="Success">ORDER</Button>
       </form>
     );
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
     return (
@@ -146,11 +145,14 @@ const mapStatetoProps = (state) => {
   return {
     localIngredients: state.ingredients,
     totalPrice: state.totalPrice,
+    loading: state.loading,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  onOrderBurger: (orderData) => dispatch(actions.purchase(orderData));
+  return {
+    onOrderBurger: (orderData) => dispatch(actions.purchase(orderData)),
+  };
 };
 
 export default connect(

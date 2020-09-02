@@ -16,10 +16,17 @@ export const purchaseFail = (errorReceived) => {
   };
 };
 
+export const purchaseStart = () => {
+  return {
+    type: actionTypes.PURCHASE_START,
+  };
+};
+
 //Asynchronous
 
 export const purchase = (orderData) => {
   return (dispatch) => {
+    dispatch(purchaseStart());
     axios
       .post("/orders.json", orderData)
       .then((res) => {

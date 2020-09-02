@@ -6,6 +6,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (actionTypes) {
+    case actionTypes.PURCHASE_START:
+      return {
+        ...state,
+        loading: true,
+      };
     case actionTypes.PURCHASE_SUCCESS:
       const newOrder = {
         ...action.orderData,
