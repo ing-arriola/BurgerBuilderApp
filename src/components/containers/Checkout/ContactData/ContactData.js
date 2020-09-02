@@ -153,4 +153,7 @@ const mapDispatchToProps = (dispatch) => {
   onOrderBurger: (orderData) => dispatch(actions.purchase(orderData));
 };
 
-export default connect(mapStatetoProps)(withError(ContactData, axios));
+export default connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(withError(ContactData, axios));
