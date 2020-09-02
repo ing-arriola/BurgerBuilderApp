@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../orders";
-import * as actions from "../../store/actions/index";
+
 //Synchronous actions
 export const purchaseSuccess = (id, orderDataReceived) => {
   return {

@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  switch (actionTypes) {
+  switch (action.type) {
     case actionTypes.PURCHASE_INIT:
       return {
         ...state,
@@ -15,6 +15,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case actionTypes.PURCHASE_START:
+      console.log("QUE PEDO EN PURCHASE START");
       return {
         ...state,
         loading: true,

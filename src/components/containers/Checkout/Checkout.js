@@ -3,7 +3,6 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import CheckoutSummary from "../Order/CheckoutSummary/CheckoutSummary";
 import ContactData from "./ContactData/ContactData";
-
 export class Checkout extends Component {
   checkoutCancelledHandler = () => {
     console.log(this.props);
