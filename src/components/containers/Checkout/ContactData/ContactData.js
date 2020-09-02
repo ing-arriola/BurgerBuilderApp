@@ -143,9 +143,9 @@ export class ContactData extends Component {
 
 const mapStatetoProps = (state) => {
   return {
-    localIngredients: state.ingredients,
-    totalPrice: state.totalPrice,
-    loading: state.loading,
+    localIngredients: state.burgerBuilder.ingredients,
+    totalPrice: state.burgerBuilder.totalPrice,
+    loading: state.order.loading,
   };
 };
 

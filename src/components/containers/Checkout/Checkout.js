@@ -36,7 +36,7 @@ export class Checkout extends Component {
 
 const mapStatetoProps = (state) => {
   return {
-    localIngredients: state.ingredients,
+    localIngredients: state.burgerBuilder.ingredients,
   };
 };
 

@@ -30,7 +30,7 @@ export const purchase = (orderData) => {
     axios
       .post("/orders.json", orderData)
       .then((res) => {
-        dispatchEvent(purchaseSuccess(res.data, orderData));
+        dispatchEvent(purchaseSuccess(res.data.name, orderData));
         //this.props.history.push("/");
       })
       .catch((err) => {
