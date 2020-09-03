@@ -29,6 +29,7 @@ class Auth extends Component {
         valid: false,
       },
     },
+    isSignUp: true,
   };
 
   checkFormField(fieldValue, rules) {
@@ -58,8 +59,15 @@ class Auth extends Component {
     e.preventDefault();
     this.props.onAuth(
       this.state.controls.email.value,
-      this.state.controls.email.value
+      this.state.controls.email.value,
+      this.state.isSignUp
     );
+  };
+
+  switchAuthMode = () => {
+    this.setState((prevState) => {
+      return { isSignUp: !prevState.isSignUp };
+    });
   };
 
   render() {
@@ -83,10 +91,14 @@ class Auth extends Component {
 
     return (
       <div className={classes.Auth}>
+        <p>{this.state.isSignUp ? "SIGN IN" : "SIGN UP"}</p>
         <form onSubmit={this.submitForm}>
           {form}
-          <Button Btntype="Success">Submit</Button>
+          <Button Btntype="AuthSuccess">Submit</Button>
         </form>
+        <Button clicked={this.switchAuthMode} Btntype="Danger">
+          {this.state.isSignUp ? "SWITCH TO SIGN UP" : "SWITCH TO SIGN IN"}
+        </Button>
       </div>
     );
   }
@@ -94,7 +106,8 @@ class Auth extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (email, password) => dispatch(actions.auth(email, password)),
+    onAuth: (email, password, signUp) =>
+      dispatch(actions.auth(email, password, signUp)),
   };
 };
 
