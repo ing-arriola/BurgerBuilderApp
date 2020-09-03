@@ -66,11 +66,11 @@ export const fetchOrdersStart = () => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
   return (dispatch) => {
     dispatch(fetchOrdersStart());
     axios
-      .get("/orders.json")
+      .get("/orders.json?auth=" + token)
       .then((ans) => {
         const ordersFromDb = [];
         for (let key in ans.data) {
