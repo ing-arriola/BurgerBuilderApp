@@ -17,7 +17,7 @@ class Auth extends Component {
         valid: false,
       },
       password: {
-        elementType: "input",
+        elementType: "password",
         elementConfig: {
           type: "password",
           placeholder: "password",

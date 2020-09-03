@@ -40,6 +40,17 @@ const Input = (props) => {
           ))}
         </select>
       );
+    case "password":
+      inputElement = (
+        <input
+          className={classes.InputElement}
+          type="password"
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+          {...props.elementConfig}
+          required
+        ></input>
+      );
       break;
     default:
       inputElement = (
