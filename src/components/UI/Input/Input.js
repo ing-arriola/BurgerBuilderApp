@@ -40,6 +40,7 @@ const Input = (props) => {
           ))}
         </select>
       );
+      break;
     case "password":
       inputElement = (
         <input

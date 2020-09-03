@@ -24,11 +24,11 @@ export const purchaseStart = () => {
 
 //Asynchronous
 
-export const purchase = (orderData) => {
+export const purchase = (orderData, token) => {
   return (dispatch) => {
     dispatch(purchaseStart());
     axios
-      .post("/orders.json", orderData)
+      .post("/orders.json?auth=" + token, orderData)
       .then((res) => {
         console.log(res.data);
         dispatch(purchaseSuccess(res.data.name, orderData));

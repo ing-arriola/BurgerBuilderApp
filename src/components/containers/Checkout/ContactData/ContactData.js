@@ -79,7 +79,7 @@ export class ContactData extends Component {
       order: formData,
     };
 
-    this.props.onOrderBurger(order);
+    this.props.onOrderBurger(order, this.props.token);
   };
 
   checkFormField(fieldValue, rules) {
@@ -148,12 +148,14 @@ const mapStatetoProps = (state) => {
     localIngredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onOrderBurger: (orderData) => dispatch(actions.purchase(orderData)),
+    onOrderBurger: (orderData, token) =>
+      dispatch(actions.purchase(orderData, token)),
   };
 };
 
