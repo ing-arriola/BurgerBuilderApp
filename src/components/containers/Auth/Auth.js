@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
+import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./Auth.css";
 import * as actions from "../../../store/actions/index";
 
@@ -29,7 +30,7 @@ class Auth extends Component {
         valid: false,
       },
     },
-    isSignUp: true,
+    isSignUp: true, //I think the user has already an account created on firebase
   };
 
   checkFormField(fieldValue, rules) {
@@ -79,7 +80,7 @@ class Auth extends Component {
       });
     }
 
-    const form = elementsForms.map((field) => (
+    let form = elementsForms.map((field) => (
       <Input
         key={field.id}
         elementType={field.setup.elementType}
@@ -89,8 +90,18 @@ class Auth extends Component {
       />
     ));
 
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
+
+    let errorMessage = null;
+    if (this.props.error) {
+      errorMessage = <p>{this.props.error.message}</p>;
+    }
+
     return (
       <div className={classes.Auth}>
+        {errorMessage}
         <p>{this.state.isSignUp ? "SIGN IN" : "SIGN UP"}</p>
         <form onSubmit={this.submitForm}>
           {form}
@@ -104,6 +115,13 @@ class Auth extends Component {
   }
 }
 
+const mapStatetoProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, signUp) =>
@@ -111,4 +129,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStatetoProps, mapDispatchToProps)(Auth);

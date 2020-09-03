@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
         error: null,
         loading: false,
       });
-    case types.PURCHASE_FAIL:
+    case types.AUTH_FAIL:
       return updateObject(state, {
         error: action.error,
         loading: false,
