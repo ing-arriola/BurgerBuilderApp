@@ -22,6 +22,7 @@ export const authFail = (errorReceived) => {
 
 //Async
 export const auth = (email, password) => {
+  console.log(email);
   return (dispatch) => {
     dispatch(authStart());
     //TODO...
