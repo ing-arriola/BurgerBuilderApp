@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
+import classes from "./Auth.css";
 
 class Auth extends Component {
   state = {
@@ -28,9 +29,29 @@ class Auth extends Component {
     },
   };
 
-  inputChangeHandler = (e, id) => {
-    console.log(e);
+  checkFormField(fieldValue, rules) {
+    let valid = false;
+    if (rules.required) {
+      valid = fieldValue.trim() !== "";
+    }
+    return valid;
+  }
+
+  inputChangeHandler = (e, controlName) => {
+    const controlsUpdated = {
+      ...this.state.controls,
+      [controlName]: {
+        ...this.state.controls[controlName],
+        value: e.target.value,
+        valid: this.checkFormField(
+          e.target.value,
+          this.state.controls[controlName].validation
+        ),
+      },
+    };
+    this.setState({ controls: controlsUpdated });
   };
+
   render() {
     const elementsForms = [];
     for (let element in this.state.controls) {
@@ -50,7 +71,7 @@ class Auth extends Component {
       />
     ));
     return (
-      <div>
+      <div className={classes.Auth}>
         <form>
           {form}
           <Button Btntype="Success">Submit</Button>
