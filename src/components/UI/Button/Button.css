@@ -31,9 +31,10 @@
 }
 
 .Auth {
-  display: inline-block;
+  position: relative;
+  left: 70%;
   color: #944317;
   border-radius: 50px;
   border: 2px solid #944317;
-  width: 8rem;
+  width: 7rem;
 }
