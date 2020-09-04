@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import axios from "axios";
+import Logout from "../../components/containers/Auth/Logout/Logout";
 
 export const authStart = () => {
   return {
@@ -23,6 +24,8 @@ export const authFail = (errorReceived) => {
 };
 
 export const authLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userId");
   return {
     type: types.AUTH_LOGOUT,
   };
@@ -32,6 +35,17 @@ export const setAuthRedirPath = (pathReceived) => {
   return {
     type: types.SET_AUTH_REDIR_PATH,
     path: pathReceived,
+  };
+};
+
+export const checkAuthState = () => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      dispatch(authLogout());
+    } else {
+      dispatch(authSuccess(token, localStorage.getItem("userId")));
+    }
   };
 };
 
@@ -57,6 +71,8 @@ export const auth = (emailReceived, passwordReceived, doSignIn) => {
       .post(url, authData)
       .then((res) => {
         console.log(res);
+        localStorage.setItem("token", res.data.idToken);
+        localStorage.setItem("userId", res.data.localId);
         dispatch(authSuccess(res.data.idToken, res.data.localId));
       })
       .catch((err) => {
