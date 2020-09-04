@@ -13,21 +13,35 @@ class App extends Component {
     this.props.onCheckAuthState();
   }
   render() {
+    let routes = (
+      <Switch>
+        <Auth path="/auth" component={Auth} />
+        <Route path="/" component={BurgerBuilder} />
+      </Switch>
+    );
+    if (this.props.isAuth) {
+      routes = (
+        <Switch>
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/orders" component={Orders} />
+          <Logout path="/logout" component={Logout} />
+          <Route path="/" component={BurgerBuilder} />
+        </Switch>
+      );
+    }
     return (
       <div>
-        <Layout>
-          <Switch>
-            <Route path="/checkout" component={Checkout} />
-            <Route path="/orders" component={Orders} />
-            <Auth path="/auth" component={Auth} />
-            <Logout path="/logout" component={Logout} />
-            <Route path="/" component={BurgerBuilder} />
-          </Switch>
-        </Layout>
+        <Layout>{routes}</Layout>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.auth.token !== null,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
