@@ -24,12 +24,16 @@
 }
 
 .AuthSuccess {
-  background: #5c9210;
-  color: #fff;
+  color: #5c9210;
+  border-radius: 50px;
+  border: 2px solid #5c9210;
+  width: 8rem;
 }
 
 .Auth {
-  color: #fff;
-  background: #944317;
-  text-align: center;
+  display: inline-block;
+  color: #944317;
+  border-radius: 50px;
+  border: 2px solid #944317;
+  width: 8rem;
 }

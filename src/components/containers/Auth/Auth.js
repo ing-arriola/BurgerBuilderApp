@@ -100,16 +100,20 @@ class Auth extends Component {
     }
 
     return (
-      <div className={classes.Auth}>
-        {errorMessage}
-        <p>{this.state.isSignUp ? "SIGN IN" : "SIGN UP"}</p>
-        <form onSubmit={this.submitForm}>
-          {form}
-          <Button Btntype="AuthSuccess">Submit</Button>
-        </form>
-        <Button clicked={this.switchAuthMode} Btntype="Danger">
-          {this.state.isSignUp ? "SWITCH TO SIGN UP" : "SWITCH TO SIGN IN"}
-        </Button>
+      <div>
+        <div classes={classes.alignSignIn}>
+          <Button clicked={this.switchAuthMode} Btntype="Auth">
+            {this.state.isSignUp ? "SIGN UP" : "SIGN IN"}
+          </Button>
+        </div>
+        <div className={classes.Auth}>
+          {errorMessage}
+          <p>{this.state.isSignUp ? "SIGN IN" : "SIGN UP"}</p>
+          <form onSubmit={this.submitForm}>
+            {form}
+            <Button Btntype="AuthSuccess">Submit</Button>
+          </form>
+        </div>
       </div>
     );
   }
