@@ -28,6 +28,13 @@ export const authLogout = () => {
   };
 };
 
+export const setAuthRedirPath = (pathReceived) => {
+  return {
+    type: types.SET_AUTH_REDIR_PATH,
+    path: pathReceived,
+  };
+};
+
 //Async
 export const auth = (emailReceived, passwordReceived, doSignIn) => {
   return (dispatch) => {
