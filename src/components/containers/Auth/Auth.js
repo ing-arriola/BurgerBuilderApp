@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import Spinner from "../../UI/Spinner/Spinner";
@@ -99,9 +100,15 @@ class Auth extends Component {
       errorMessage = <p>{this.props.error.message}</p>;
     }
 
+    let beRedirected = null;
+    if (this.props.isAuth) {
+      beRedirected = <Redirect to="/" />;
+    }
+
     return (
       <div>
         <div classes={classes.alignSignIn}>
+          {beRedirected}
           <Button clicked={this.switchAuthMode} Btntype="Auth">
             {this.state.isSignUp ? "SIGN UP" : "SIGN IN"}
           </Button>
@@ -123,6 +130,7 @@ const mapStatetoProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
+    isAuth: state.auth.token !== null,
   };
 };
 

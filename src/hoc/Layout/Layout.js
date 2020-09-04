@@ -36,7 +36,7 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    notAuth: state.auth.token == null,
+    notAuth: state.auth.token === null,
   };
 };
 
