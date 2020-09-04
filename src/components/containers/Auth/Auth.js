@@ -34,6 +34,12 @@ class Auth extends Component {
     isSignUp: true, //I think the user has already an account created on firebase
   };
 
+  componentDidMount() {
+    if (!this.props.building && this.props.authRedirPath !== "/") {
+      this.props.onChangeAuthPath();
+    }
+  }
+
   checkFormField(fieldValue, rules) {
     let valid = false;
     if (rules.required) {
@@ -102,7 +108,7 @@ class Auth extends Component {
 
     let beRedirected = null;
     if (this.props.isAuth) {
-      beRedirected = <Redirect to="/" />;
+      beRedirected = <Redirect to={this.props.authRedirPath} />;
     }
 
     return (
@@ -131,6 +137,8 @@ const mapStatetoProps = (state) => {
     loading: state.auth.loading,
     error: state.auth.error,
     isAuth: state.auth.token !== null,
+    building: state.burgerBuilder.building,
+    authRedirPath: state.auth.authRedirPath,
   };
 };
 
@@ -138,6 +146,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, signUp) =>
       dispatch(actions.auth(email, password, signUp)),
+    onChangeAuthPath: () => dispatch(actions.setAuthRedirPath("/")),
   };
 };
 
