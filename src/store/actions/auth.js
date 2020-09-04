@@ -22,6 +22,12 @@ export const authFail = (errorReceived) => {
   };
 };
 
+export const authLogout = () => {
+  return {
+    type: types.AUTH_LOGOUT,
+  };
+};
+
 //Async
 export const auth = (emailReceived, passwordReceived, doSignIn) => {
   return (dispatch) => {
@@ -31,7 +37,7 @@ export const auth = (emailReceived, passwordReceived, doSignIn) => {
       password: passwordReceived,
       returnSecureToken: true,
     };
-    const apiKey = "apikey";
+    const apiKey = "AIzaSyAxQsw3sRa8kzoA8Qr-wSUY8_cJxm8R4TY";
     let url =
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + apiKey;
 
