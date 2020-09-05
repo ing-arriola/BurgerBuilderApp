@@ -1,6 +1,5 @@
 import * as types from "./actionTypes";
 import axios from "axios";
-import Logout from "../../components/containers/Auth/Logout/Logout";
 
 export const authStart = () => {
   return {
@@ -58,7 +57,7 @@ export const auth = (emailReceived, passwordReceived, doSignIn) => {
       password: passwordReceived,
       returnSecureToken: true,
     };
-    const apiKey = "apikey";
+    const apiKey = "APIKEY";
     let url =
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + apiKey;
 
