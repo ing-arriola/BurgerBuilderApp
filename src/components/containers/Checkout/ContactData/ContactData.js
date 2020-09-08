@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import Button from "../../../UI/Button/Button";
 import axios from "../../../../orders";
@@ -8,141 +8,137 @@ import classes from "./ContactData.css";
 import withError from "../../../../hoc/errorHandler/errorHandler";
 import * as actions from "../../../../store/actions/index";
 
-export class ContactData extends Component {
-  state = {
-    orderForm: {
-      name: {
-        elementType: "input",
-        elementConfig: {
-          type: "text",
-          placeholder: "name",
-        },
-        value: "",
-        validation: { required: "true" },
-        valid: false,
+const ContactData = (props) => {
+  const [orderForm, setOrderForm] = useState({
+    name: {
+      elementType: "input",
+      elementConfig: {
+        type: "text",
+        placeholder: "name",
       },
-      email: {
-        elementType: "input",
-        elementConfig: {
-          type: "email",
-          placeholder: "email",
-        },
-        value: "",
-        validation: { required: "true" },
-        valid: false,
-      },
-      street: {
-        elementType: "input",
-        elementConfig: {
-          type: "text",
-          placeholder: "street",
-        },
-        value: "",
-        validation: { required: "true" },
-        valid: false,
-      },
-      postal: {
-        elementType: "input",
-        elementConfig: {
-          type: "text",
-          placeholder: "zip code",
-        },
-        value: "",
-        validation: { required: "true" },
-        valid: false,
-      },
-      deliverMethod: {
-        elementType: "select",
-        elementConfig: {
-          options: [
-            { value: "Fast", displayValue: "Fast" },
-            { value: "Cheap", displayValue: "Cheap" },
-          ],
-        },
-        value: "Fast ",
-        valid: true,
-        validation: {},
-      },
+      value: "",
+      validation: { required: "true" },
+      valid: false,
     },
-  };
+    email: {
+      elementType: "input",
+      elementConfig: {
+        type: "email",
+        placeholder: "email",
+      },
+      value: "",
+      validation: { required: "true" },
+      valid: false,
+    },
+    street: {
+      elementType: "input",
+      elementConfig: {
+        type: "text",
+        placeholder: "street",
+      },
+      value: "",
+      validation: { required: "true" },
+      valid: false,
+    },
+    postal: {
+      elementType: "input",
+      elementConfig: {
+        type: "text",
+        placeholder: "zip code",
+      },
+      value: "",
+      validation: { required: "true" },
+      valid: false,
+    },
+    deliverMethod: {
+      elementType: "select",
+      elementConfig: {
+        options: [
+          { value: "Fast", displayValue: "Fast" },
+          { value: "Cheap", displayValue: "Cheap" },
+        ],
+      },
+      value: "Fast ",
+      valid: true,
+      validation: {},
+    },
+  });
 
-  orderHandler = (e) => {
+  const orderHandler = (e) => {
     e.preventDefault();
     const formData = {};
-    for (let formElement in this.state.orderForm) {
-      formData[formElement] = this.state.orderForm[formElement].value;
+    for (let formElement in orderForm) {
+      formData[formElement] = orderForm[formElement].value;
     }
 
     const order = {
-      ingredient: this.props.localIngredients,
-      price: this.props.totalPrice,
+      ingredient: props.localIngredients,
+      price: props.totalPrice,
       order: formData,
-      userId: this.props.id,
+      userId: props.id,
     };
 
-    this.props.onOrderBurger(order, this.props.token);
+    props.onOrderBurger(order, props.token);
   };
 
-  checkFormField(fieldValue, rules) {
+  const checkFormField = (fieldValue, rules) => {
     let valid = false;
     if (rules.required) {
       valid = fieldValue.trim() !== "";
     }
     return valid;
-  }
+  };
 
-  inputChangeHandler = (e, inputId) => {
+  const inputChangeHandler = (e, inputId) => {
     const stateCopy = {
-      ...this.state.orderForm,
+      ...orderForm,
     };
     const stateElementCopy = {
       ...stateCopy[inputId],
     };
     stateElementCopy.value = e.target.value;
-    stateElementCopy.valid = this.checkFormField(
+    stateElementCopy.valid = checkFormField(
       stateElementCopy.value,
       stateElementCopy.validation
     );
     stateCopy[inputId] = stateElementCopy;
-    console.log(stateElementCopy);
-    this.setState({ orderForm: stateCopy });
+
+    setOrderForm(stateCopy);
   };
 
-  render() {
-    const elementsForms = [];
-    for (let element in this.state.orderForm) {
-      elementsForms.push({
-        id: element,
-        setup: this.state.orderForm[element],
-      });
-    }
-    console.log(elementsForms[0].setup.elementType);
-    let form = (
-      <form onSubmit={this.orderHandler}>
-        <label>Your name:</label>
-        {elementsForms.map((field) => (
-          <Input
-            key={field.id}
-            elementType={field.setup.elementType}
-            elementConfig={field.setup.elementConfig}
-            value={field.setup.value}
-            change={(e) => this.inputChangeHandler(e, field.id)}
-          />
-        ))}
-        <Button Btntype="Success">ORDER</Button>
-      </form>
-    );
-    if (this.props.loading) {
-      form = <Spinner />;
-    }
-    return (
-      <div className={classes.ContactData}>
-        <h4>Enter your Contact Data</h4>
-        {form}
-      </div>
-    );
+  const elementsForms = [];
+  for (let element in orderForm) {
+    elementsForms.push({
+      id: element,
+      setup: orderForm[element],
+    });
   }
-}
+
+  let form = (
+    <form onSubmit={orderHandler}>
+      <label>Your name:</label>
+      {elementsForms.map((field) => (
+        <Input
+          key={field.id}
+          elementType={field.setup.elementType}
+          elementConfig={field.setup.elementConfig}
+          value={field.setup.value}
+          change={(e) => inputChangeHandler(e, field.id)}
+        />
+      ))}
+      <Button Btntype="Success">ORDER</Button>
+    </form>
+  );
+  if (props.loading) {
+    form = <Spinner />;
+  }
+  return (
+    <div className={classes.ContactData}>
+      <h4>Enter your Contact Data</h4>
+      {form}
+    </div>
+  );
+};
 
 const mapStatetoProps = (state) => {
   return {
