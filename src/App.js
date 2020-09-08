@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import asynComponents from "./hoc/asyncComponent/asynComponent";
@@ -17,35 +17,34 @@ const asynAuth = asynComponents(() => {
   return import("./components/containers/Auth/Auth");
 });
 
-class App extends Component {
-  componentDidMount() {
-    this.props.onCheckAuthState();
-  }
-  render() {
-    let routes = (
+const App = (props) => {
+  useEffect(() => {
+    props.onCheckAuthState();
+  }, []);
+
+  let routes = (
+    <Switch>
+      <Route path="/auth" component={asynAuth} />
+      <Route path="/" component={BurgerBuilder} />
+    </Switch>
+  );
+  if (props.isAuth) {
+    routes = (
       <Switch>
+        <Route path="/checkout" component={asynCheckout} />
+        <Route path="/orders" component={asynOrders} />
+        <Logout path="/logout" component={Logout} />
         <Route path="/auth" component={asynAuth} />
         <Route path="/" component={BurgerBuilder} />
       </Switch>
     );
-    if (this.props.isAuth) {
-      routes = (
-        <Switch>
-          <Route path="/checkout" component={asynCheckout} />
-          <Route path="/orders" component={asynOrders} />
-          <Logout path="/logout" component={Logout} />
-          <Route path="/auth" component={asynAuth} />
-          <Route path="/" component={BurgerBuilder} />
-        </Switch>
-      );
-    }
-    return (
-      <div>
-        <Layout>{routes}</Layout>
-      </div>
-    );
   }
-}
+  return (
+    <div>
+      <Layout>{routes}</Layout>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
