@@ -1,38 +1,32 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import Aux from "../Aux";
 import classes from "./Layout.css";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
-class Layout extends Component {
-  state = {
-    showSideDrawer: false,
+const Layout = (props) => {
+  const [showSideDrawer, setShowSideDrawer] = useState(false);
+
+  const sideDrawerClosedHandler = () => {
+    setShowSideDrawer(!showSideDrawer);
   };
 
-  sideDrawerClosedHandler = () => {
-    let toggleState = !this.state.showSideDrawer;
-    this.setState({ showSideDrawer: toggleState });
+  const showMenuHandler = () => {
+    setShowSideDrawer(!showSideDrawer);
   };
 
-  showMenuHandler = () => {
-    let menuState = this.state.showSideDrawer;
-    this.setState({ showSideDrawer: !menuState });
-  };
-
-  render() {
-    return (
-      <Aux>
-        <Toolbar auth={this.props.notAuth} showMenu={this.showMenuHandler} />
-        <main className={classes.Content}>{this.props.children}</main>
-        <SideDrawer
-          auth={this.props.notAuth}
-          show={this.state.showSideDrawer}
-          closed={this.sideDrawerClosedHandler}
-        />
-      </Aux>
-    );
-  }
-}
+  return (
+    <Aux>
+      <Toolbar auth={props.notAuth} showMenu={showMenuHandler} />
+      <main className={classes.Content}>{props.children}</main>
+      <SideDrawer
+        auth={props.notAuth}
+        show={showSideDrawer}
+        closed={sideDrawerClosedHandler}
+      />
+    </Aux>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
