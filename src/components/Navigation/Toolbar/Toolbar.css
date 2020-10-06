@@ -15,6 +15,7 @@
 
 .Toolbar nav {
   height: 100%;
+  display: flex;
 }
 
 .Logo {
@@ -23,6 +24,6 @@
 
 @media (max-width: 500px) {
   .Toolbar nav {
-    visibility: hidden;
+    display: none;
   }
 }
