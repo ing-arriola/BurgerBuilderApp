@@ -62,12 +62,9 @@ export const auth = (emailReceived, passwordReceived, doSignIn) => {
 
     if (process.env.NODE_ENV !== "production") {
       secret = process.env.REACT_APP_FIREBASE;
-      console.log(process.env);
     } else {
       secret = process.env.FIREBASE_SECRET;
     }
-    console.log(process.env.NODE_ENV);
-    console.log(process.env.REACT_APP_FIREBASE);
     const apiKey = secret;
     let url =
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + apiKey;
